@@ -1,0 +1,18 @@
+{
+  "name": "fancy-weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "scripts": {
+    "test": "npm run",
+    "lint": "eslint **/*.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
