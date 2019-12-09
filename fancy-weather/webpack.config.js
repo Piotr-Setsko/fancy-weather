@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
+    filename: 'main.js',
   },
   module: {
     rules: [
@@ -15,8 +15,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -36,21 +36,22 @@ module.exports = {
         use: ExtractTextPlugin.extract(
           {
             fallback: 'style-loader',
-            use: ['css-loader']
-          })
-      }
-    ]
+            use: ['css-loader'],
+          },
+        ),
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanAfterEveryBuildPatterns: ['dist']
-  }),
-    new ExtractTextPlugin({filename: 'style.css'}),
+      cleanAfterEveryBuildPatterns: ['dist'],
+    }),
+    new ExtractTextPlugin({ filename: 'style.css' }),
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,
       template: './src/index.html',
-      filename: 'index.html'
-    })
-  ]
+      filename: 'index.html',
+    }),
+  ],
 };

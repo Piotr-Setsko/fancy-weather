@@ -2,18 +2,28 @@
   --link: url('https://images.unsplash.com/photo-1477601263568-180e2c6d046e');
 }
 
+body {
+  width: 100%;
+}
+
 .page__wrapper {
   display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
   background-image: var(--link);
-  width: 100%;
-  min-height: 300px;
-  background-size: contain;
+  width: 1024px;
+  height: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
 .weather-today__city {
   color: #ffffff;
   font-size: 22px;
+}
+
+.weather__wrapper {
+  width: 50%;
 }
 
 .weather__map {
