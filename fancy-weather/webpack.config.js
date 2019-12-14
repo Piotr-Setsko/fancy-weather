@@ -19,19 +19,6 @@ module.exports = {
         },
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              bypassOnDebug: true, // webpack@1.x
-              disable: true, // webpack@2.x and newer
-            },
-          },
-        ],
-      },
-      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract(
           {
@@ -48,8 +35,6 @@ module.exports = {
     }),
     new ExtractTextPlugin({ filename: 'style.css' }),
     new HtmlWebpackPlugin({
-      inject: false,
-      hash: true,
       template: './src/index.html',
       filename: 'index.html',
     }),
