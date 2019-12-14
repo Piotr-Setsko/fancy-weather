@@ -1,10 +1,10 @@
 import { getUserLocation, getCountryName } from '../location/location';
 
-async function weatherData(search, unit) {
+async function weatherData(search, unit, lang) {
   const nextDays = {};
   const weatherInfo = {};
-
-  const weatherData = await getWeatherForecast(search, unit);
+  //console.log(lang);
+  const weatherData = await getWeatherForecast(search, unit, lang);
   // console.log(weatherData);
     const { city } = weatherData;
     const { name, country, coord } = city;
@@ -48,10 +48,10 @@ async function weatherData(search, unit) {
     return weatherInfo;
 }
 
-function getWeatherForecast(search, unit) {
+function getWeatherForecast(search, unit, lang) {
   const WEATHER_API_TOKEN = '126d13202c34a940babbe01a1df00e7d';
 
-  return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=en&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
+  return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
     .then((response) => response.json());
   // .then(data => console.log(data));
 }

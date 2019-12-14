@@ -7,8 +7,9 @@ async function getTime(timeZone, nextDays) {
   const localDate = {};
   const date = new Date();
   const optionsTime = {
-    hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `${timeZone}`,
+    hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `Poland/Warsaw`,
   };
+  console.log(timeZone);
   localDate.week = date.toLocaleString('en', { weekday: 'short' });
   localDate.day = date.toLocaleString('en', { day: 'numeric' });
   localDate.year = date.toLocaleString('en', { month: 'long' });
@@ -28,6 +29,6 @@ function translate() {
     .then((data) => console.log(data));
 }
 
-translate();
+//translate();
 
-export { effectTemp, getTime };
+export { getTime, translate };
