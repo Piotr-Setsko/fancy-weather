@@ -9,8 +9,6 @@ function someFunc() {
   } else {
     search = document.location.search.splice(8);
   }
-
-  //console.log(search);
   return search;
 }
 

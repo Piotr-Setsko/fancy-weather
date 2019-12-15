@@ -5,9 +5,7 @@ async function weatherData(search, unit, lang) {
   const iconTomorrow = {};
   const tempTomorrow = {};
   const weatherInfo = {};
-  //console.log(lang);
   const weatherData = await getWeatherForecast(search, unit, lang);
-  // console.log(weatherData);
     const { city } = weatherData;
     const { name, country, coord, timezone } = city;
     const { list } = weatherData;
@@ -46,8 +44,6 @@ async function weatherData(search, unit, lang) {
     weatherInfo.iconTomorrow = iconTomorrow;
     weatherInfo.timezone = timezone;
 
-    //console.log(weatherInfo);
-
     return weatherInfo;
 }
 
@@ -56,7 +52,6 @@ function getWeatherForecast(search, unit, lang) {
 
   return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
     .then((response) => response.json());
-  // .then(data => console.log(data));
 }
 
 export { getWeatherForecast, weatherData};

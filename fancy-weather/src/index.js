@@ -3,12 +3,12 @@ import '@babel/polyfill';
 let language = import('./assets/language.json').then(({default: language}) => language);
 import { renderForecastInfo, renderStatic, renderWeather} from './js/dom/dom';
 import init from './js/map/map';
-import { getTime, translate } from './js/utilities/utilities';
+import {getTime, translate } from './js/utilities/utilities';
 import { getUserLocation, getCountryName } from './js/location/location';
 import { getWeatherForecast, weatherData} from './js/weather/weather';
 import getImage from './js/background/background';
-import someFunc from './js/search/search';
-import getLanguage from './js/language/language';
+//import someFunc from './js/search/search';
+//import getLanguage from './js/language/language';
 
 let weatherInfo;
 let search;
@@ -41,38 +41,22 @@ async function create() {
 
 
 
-/*
-console.log(link);
+  let wrapper = document.querySelector('.page__wrapper');
   if (link !== 'undefined') {
     wrapper.style.setProperty('--link', `url(${link})`);
   }
-  */
+  let {urls} = await getImage(weatherInfo.description);
+  let link = urls.regular;
+  wrapper.style.setProperty('--link', `url(${link})`);
 
-    //let {urls} = await getImage(weatherInfo.description);
-      //let link = urls.regular;
-  //console.log(link);
-  let wrapper = document.querySelector('.page__wrapper');
-  //wrapper.style.setProperty('--link', `url(${link})`);
-    //console.log(feels_like)
 
 
     const data = await getTime(timezone, weatherInfo.nextDays);
-    
-/*
-    setInterval(() => function() {
-      console.log('hello');
-      const time = document.querySelector('.weather-today___time');
-      const date = document.querySelector('.weather-today___date');
-      document.querySelector('.weather__wrapper').remove();
-      const data = getTime(timezone, weatherInfo.nextDays);
-      renderForecastInfo(weatherInfo.name, weatherInfo.countryName, data, weatherInfo.temp, weatherInfo.icon, weatherInfo.description, weatherInfo.feels, weatherInfo.speed, weatherInfo.humidity, weatherInfo.coord);
-      //time.after(date);
-    }, 2000);
-*/
-    renderForecastInfo(data, weatherInfo, language);
+
+
+    renderForecastInfo(data, weatherInfo, lang);
 
       init(weatherInfo.coord);
-      //console.log(getWeatherForecast(search));
 
 
     selectLang.addEventListener('change', async (event) => {
@@ -80,17 +64,20 @@ console.log(link);
       if (event.target.value === 'ru') {
         lang = ru;
         weatherInfo = await weatherData(search, unit, event.target.value);
-       // console.log(ru);
+        let transl = await translate(`${weatherInfo.name} ${weatherInfo.countryName}`, 'en-ru');
+        let { text } = transl;
+        text = text[0];
+        text = text.split(" ");
+        weatherInfo.name = text[0]
+        weatherInfo.countryName = text[1];
       } else if (event.target.value === 'by') {
         lang = by;
-        //translate(weatherInfo.name, weatherInfo.countryName)
-        event.target.value = 'ru';
         weatherInfo = await weatherData(search, unit, event.target.value);
-        //getLanguage
       } else {
         lang = en;
         weatherInfo = await weatherData(search, unit, event.target.value);
       }
+
       document.querySelector('.weather__wrapper').remove();
       renderWeather(data, weatherInfo, lang);
     });
@@ -118,7 +105,7 @@ console.log(link);
       });
 
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }
 
@@ -137,5 +124,5 @@ let refresh = document.querySelector('.control__refresh');
   const imperial = document.querySelector('.control__unit--imperial');
   const selectLang = document.querySelector('.control__select-lang');
 
-  //console.log(weatherInfo);
+
 
