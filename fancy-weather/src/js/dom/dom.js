@@ -1,53 +1,71 @@
 let wrapper;
-//import init from '../map/map';
+//import image from './assets/Vector.svg';
 
 function renderStatic() {
   const markup =
   `<div class="page__wrapper">
-    <button class="page__refresh">&#8635;</button>
-    <select class="page__select-lang">
-      <option class="page__option-lang page__option-lang--en">en</option>
-      <option>ru</option>
-      <option>by</option>
-    </select>
-    <button class="page__weather page__weather--imperial">&#8457;</button>
-    <button class="page__weather page__weather--metric active">&#8451;</button>
-    <form>
-      <input id="search" type="text" name="search" placeholder="Search sity or ZIP">
-      <input id="btn" type="submit" value="search">
-    </form>
+    <div class="page__control">
+      <div class="page__buttons">
+        <button class="control__refresh button"><img class="control__refresh--img" src='assets/images/Vector.svg'></button>
+        <div class="control__select-wrapper">
+        <select class="control__select-lang button">
+          <option class="control__option-lang control__option-lang--en">en</option>
+          <option class="control__option-lang control__option-lang--ru">ru</option>
+          <option class="control__option-lang control__option-lang--by">by</option>
+        </select>
+      </div>
+      <button class="control__unit control__unit--imperial button">&deg;F</button>
+      <button class="control__unit control__unit--metric button active">&deg;C</button>
+    </div>
+    <div class="page__search">
+      <form class="search__form">
+        <input id="search" class="search__input" type="text" name="search" placeholder="Search sity or ZIP" pattern="^[a-zA-Zа-яёА-ЯЁ]+$">
+        <input id="btn" class="search__button button" type="submit" value="search">
+      </form>
+    </div>
+  </div>
+  <div class="page__weather">
   </div>`
 
   document.body.innerHTML = markup;
-  wrapper = document.querySelector('.page__wrapper');
+  wrapper = document.querySelector('.page__weather');
 }
 
 renderStatic();
 
 function renderForecastInfo(city, countryName, data, temp, icon, description, feels, speed, humidity, coord) {
   const markup =
-    `<div class="weather__wrapper">
-      <p class="weather-today__city">${city}, ${countryName}</p>
-      <p class="weather-today__city"><span class="weather-today___date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today___time">${data.time}</p>
-      <p class="weather-today__city">${Math.round(temp)}&#8451;<img src="http://openweathermap.org/img/wn/${icon}@2x.png"></p>
-      <ul class="weather-today__city">
+    `
+    <div class="weather__wrapper">
+      <p class="weather-today__location">${city}, ${countryName}</p>
+      <p class="weather-today__fulltime"><span class="weather-today__date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today__time">${data.time}</p>
+      <div class="weather-today__main-block">
+      <div class="weather-today__section">
+      <p class="weather-today__temperature">${Math.round(temp)}</p>
+      <img class="weather-today__picture" src="http://openweathermap.org/img/wn/${icon}@2x.png">
+      </div>
+      <ul class="weather-today__description">
         <li>${description}</li>
-        <li>feels like: ${Math.round(feels)}&#8451;</li>
+        <li>feels like: ${Math.round(feels)}&deg;</li>
         <li>wind: ${Math.round(speed)} m/s</li>
         <li>humidity: ${humidity}%</li>
       </ul>
+      </div>
+      <div class="weather-today__future">
+      <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      </ul>
+      </div>
     </div>
     <div class="weather__map">
       <div id="map"></div>
       <p class="weather-today__city">Latitude: ${Math.trunc(coord.lat)}&#176;${Math.trunc((coord.lat - Math.trunc(coord.lat)) * 100)}&#8242;</p>
       <p class="weather-today__city">Longitude: ${Math.trunc(coord.lon)}&#176;${Math.trunc((coord.lon - Math.trunc(coord.lon)) * 100)}&#8242;</p>
-    </div>`;
-    /*
-  console.log(link);
-    if (link !== 'undefined') {
-      wrapper.style.setProperty('--link', `url(${link})`);
-    }
-    */
+    </div>
+   `;
+
   wrapper.insertAdjacentHTML('beforeend', markup);
 }
 
@@ -64,7 +82,7 @@ function renderWeather(weatherInfo, data, symbol, language) {
         <li>${language[2]}: ${weatherInfo.humidity}%</li>
       </ul>
     </div>`
-    let form = document.getElementsByTagName('form')[0];
+    let form = document.querySelector('.search__form');
     form.insertAdjacentHTML('beforeend', markup);
 }
 

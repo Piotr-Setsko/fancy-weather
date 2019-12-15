@@ -2,6 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -27,6 +28,11 @@ module.exports = {
           },
         ),
       },
+      {
+        //include: SRC,
+        test: /\.(eot|gif|otf|png|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [ 'file-loader' ],
+      },
     ],
   },
   plugins: [
@@ -38,5 +44,8 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html',
     }),
+    new CopyWebpackPlugin([
+      {from:'src/assets/images',to:'assets/images'}
+    ]),
   ],
 };

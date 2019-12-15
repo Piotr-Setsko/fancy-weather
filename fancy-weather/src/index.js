@@ -49,6 +49,13 @@ async function create() {
 console.log(timezone);
 
 
+/*
+console.log(link);
+  if (link !== 'undefined') {
+    wrapper.style.setProperty('--link', `url(${link})`);
+  }
+  */
+
     //let {urls} = await getImage(weatherInfo.description);
       //let link = urls.regular;
   //console.log(link);
@@ -129,16 +136,16 @@ create();
 
 export default create;
 
-let refresh = document.querySelector('.page__refresh');
+let refresh = document.querySelector('.control__refresh');
 
   refresh.addEventListener('click', () => {
     location.reload();
     document.location.search = '';
   });
 
-  const metric = document.querySelector('.page__weather--metric');
-  const imperial = document.querySelector('.page__weather--imperial');
-  const selectLang = document.querySelector('.page__select-lang');
+  const metric = document.querySelector('.control__unit--metric');
+  const imperial = document.querySelector('.control__unit--imperial');
+  const selectLang = document.querySelector('.control__select-lang');
 
   //console.log(weatherInfo);
 
