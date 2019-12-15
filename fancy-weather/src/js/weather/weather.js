@@ -2,6 +2,8 @@ import { getUserLocation, getCountryName } from '../location/location';
 
 async function weatherData(search, unit, lang) {
   const nextDays = {};
+  const iconTomorrow = {};
+  const tempTomorrow = {};
   const weatherInfo = {};
   //console.log(lang);
   const weatherData = await getWeatherForecast(search, unit, lang);
@@ -11,21 +13,25 @@ async function weatherData(search, unit, lang) {
     const { list } = weatherData;
     const { main, weather, wind, sys } = list[0];
     const { pad } = sys;
-    const tempTomorrow = list[8].main.temp;
-    const tempAftTom = list[16].main.temp;
-    const tempAftAftTom = list[24].main.temp;
+    tempTomorrow[0] = list[8].main.temp;
+    tempTomorrow[1] = list[16].main.temp;
+    tempTomorrow[2] = list[24].main.temp;
     nextDays[0] = list[8].dt_txt;
     nextDays[1] = list[16].dt_txt;
     nextDays[2] = list[24].dt_txt;
+    iconTomorrow[0] = list[8].weather[0].icon;
+    iconTomorrow[1] = list[16].weather[0].icon;
+    iconTomorrow[2] = list[24].weather[0].icon;
+    console.log(list[8].weather[0].icon);
 
     const { feels_like, temp, humidity, pressure } = main;
     const { speed } = wind;
     const { description, icon } = weather[0];
 
     const countryName = await getCountryName(country);
-    //console.log(countryName);
+    console.log(tempTomorrow);
 
-    
+
     weatherInfo.name = name;
     weatherInfo.countryName = countryName;
     weatherInfo.temp = temp;
@@ -36,6 +42,8 @@ async function weatherData(search, unit, lang) {
     weatherInfo.humidity = humidity;
     weatherInfo.coord = coord;
     weatherInfo.nextDays = nextDays;
+    weatherInfo.tempTomorrow = tempTomorrow;
+    weatherInfo.iconTomorrow = iconTomorrow;
     weatherInfo.timezone = timezone;
 
     //console.log(weatherInfo);

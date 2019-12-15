@@ -22,9 +22,12 @@ async function getTime(timeZone, nextDays) {
   localDate.day = date.toLocaleString('en', { day: 'numeric' });
   localDate.year = date.toLocaleString('en', { month: 'long' });
   //localDate.time = date.toLocaleString('en', optionsTime);
-
-  localDate.tom = new Date(`${nextDays[1]}`).toLocaleString('en', { weekday: 'long' });
-  console.log(localDate);
+  let tom = [];
+  tom[0]  = new Date(`${nextDays[0]}`).toLocaleString('en', { weekday: 'long' });
+  tom[1]  = new Date(`${nextDays[1]}`).toLocaleString('en', { weekday: 'long' });
+  tom[2]  = new Date(`${nextDays[2]}`).toLocaleString('en', { weekday: 'long' });
+  
+  localDate.tom = tom;
   return localDate;
 }
 

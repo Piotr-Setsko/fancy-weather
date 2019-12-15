@@ -16,11 +16,11 @@ let search;
 
 async function create() {
   try {
-    const nextDays = {};
+    let unit;
+    let { ru, en, by } = await language;
+    let lang = en;
 
-    let { city, timezone} = await getUserLocation();
-
-
+    let { city } = await getUserLocation();
 
     if (document.location.search === '') {
       search = city;
@@ -29,24 +29,16 @@ async function create() {
     }
 
 
-  let unit;
-  let symbol;
-
   if (metric.classList.contains("active")) {
     unit = 'metric';
-    symbol = '&#8451;';
   } else {
     unit = 'imperial';
-    symbol = '&#8457';
   }
 
-  let { ru, en, by } = await language;
-  let lang = en;
-
     weatherInfo = await weatherData(search, unit, lang);
-  //console.log(weatherInfo);
-  timezone = weatherInfo.timezone;
-console.log(timezone);
+
+  const timezone = weatherInfo.timezone;
+
 
 
 /*
@@ -65,8 +57,8 @@ console.log(link);
 
 
     const data = await getTime(timezone, weatherInfo.nextDays);
-    console.log(data);
-
+    
+/*
     setInterval(() => function() {
       console.log('hello');
       const time = document.querySelector('.weather-today___time');
@@ -76,8 +68,8 @@ console.log(link);
       renderForecastInfo(weatherInfo.name, weatherInfo.countryName, data, weatherInfo.temp, weatherInfo.icon, weatherInfo.description, weatherInfo.feels, weatherInfo.speed, weatherInfo.humidity, weatherInfo.coord);
       //time.after(date);
     }, 2000);
-
-    renderForecastInfo(weatherInfo.name, weatherInfo.countryName, data, weatherInfo.temp, weatherInfo.icon, weatherInfo.description, weatherInfo.feels, weatherInfo.speed, weatherInfo.humidity, weatherInfo.coord);
+*/
+    renderForecastInfo(data, weatherInfo, language);
 
       init(weatherInfo.coord);
       //console.log(getWeatherForecast(search));
@@ -100,7 +92,7 @@ console.log(link);
         weatherInfo = await weatherData(search, unit, event.target.value);
       }
       document.querySelector('.weather__wrapper').remove();
-      renderWeather(weatherInfo, data, symbol, lang);
+      renderWeather(data, weatherInfo, lang);
     });
 
       metric.addEventListener('click', async () => {
@@ -109,10 +101,9 @@ console.log(link);
           imperial.classList.toggle('active');
         }
         let unit = 'metric';
-        let symbol = '&#8451;';
         let weatherInfo = await weatherData(search, unit);
         document.querySelector('.weather__wrapper').remove();
-        renderWeather(weatherInfo, data, symbol, lang);
+        renderWeather(data, weatherInfo, lang);
       });
 
       imperial.addEventListener('click', async () => {
@@ -121,10 +112,9 @@ console.log(link);
           imperial.classList.toggle('active');
         }
         let unit = 'imperial';
-        let symbol = '&#8457';
         let weatherInfo = await weatherData(search, unit);
         document.querySelector('.weather__wrapper').remove();
-        renderWeather(weatherInfo, data, symbol, lang);
+        renderWeather(data, weatherInfo, lang);
       });
 
   } catch (e) {

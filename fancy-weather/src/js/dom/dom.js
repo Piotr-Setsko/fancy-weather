@@ -33,57 +33,59 @@ function renderStatic() {
 
 renderStatic();
 
-function renderForecastInfo(city, countryName, data, temp, icon, description, feels, speed, humidity, coord) {
+function renderForecastInfo(data, weatherInfo, language) {
+
+  renderWeather( data, weatherInfo, language)
   const markup =
-    `
-    <div class="weather__wrapper">
-      <p class="weather-today__location">${city}, ${countryName}</p>
-      <p class="weather-today__fulltime"><span class="weather-today__date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today__time">${data.time}</p>
-      <div class="weather-today__main-block">
-      <div class="weather-today__section">
-      <p class="weather-today__temperature">${Math.round(temp)}</p>
-      <img class="weather-today__picture" src="http://openweathermap.org/img/wn/${icon}@2x.png">
-      </div>
-      <ul class="weather-today__description">
-        <li>${description}</li>
-        <li>feels like: ${Math.round(feels)}&deg;</li>
-        <li>wind: ${Math.round(speed)} m/s</li>
-        <li>humidity: ${humidity}%</li>
-      </ul>
-      </div>
-      <div class="weather-today__future">
-      <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      </ul>
-      </div>
-    </div>
-    <div class="weather__map">
+    `<div class="location__map">
       <div id="map"></div>
-      <p class="weather-today__city">Latitude: ${Math.trunc(coord.lat)}&#176;${Math.trunc((coord.lat - Math.trunc(coord.lat)) * 100)}&#8242;</p>
-      <p class="weather-today__city">Longitude: ${Math.trunc(coord.lon)}&#176;${Math.trunc((coord.lon - Math.trunc(coord.lon)) * 100)}&#8242;</p>
+      <div class="location__footer">
+      <p class="location__coord">Latitude: ${Math.trunc(weatherInfo.coord.lat)}&#176;${Math.trunc((weatherInfo.coord.lat - Math.trunc(weatherInfo.coord.lat)) * 100)}&#8242;</p>
+      <p class="location__coord">Longitude: ${Math.trunc(weatherInfo.coord.lon)}&#176;${Math.trunc((weatherInfo.coord.lon - Math.trunc(weatherInfo.coord.lon)) * 100)}&#8242;</p>
+      </div>
     </div>
    `;
 
   wrapper.insertAdjacentHTML('beforeend', markup);
 }
 
-function renderWeather(weatherInfo, data, symbol, language) {
+function renderWeather(data, weatherInfo, language) {
   const markup =
-    `<div class="weather__wrapper">
-      <p class="weather-today__city">${weatherInfo.name}, ${weatherInfo.countryName}</p>
-      <p class="weather-today__city">${data.week} ${data.day} ${data.year} ${data.time}</p>
-      <p class="weather-today__city">${Math.round(weatherInfo.temp)}${symbol}<img src="http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png"></p>
-      <ul class="weather-today__city">
-        <li>${weatherInfo.description}</li>
-        <li>${language[0]}: ${Math.round(weatherInfo.feels)}${symbol}</li>
-        <li>${language[1]}: ${Math.round(weatherInfo.speed)} m/s</li>
-        <li>${language[2]}: ${weatherInfo.humidity}%</li>
-      </ul>
+  `<div class="weather__wrapper">
+  <p class="weather-today__location">${weatherInfo.name}, ${weatherInfo.countryName}</p>
+  <p class="weather-today__fulltime"><span class="weather-today__date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today__time">${data.time}</span></p>
+  <div class="weather-today__main-block">
+  <div class="weather-today__section">
+  <p class="weather-today__temperature">${Math.round(weatherInfo.temp)}<span>&deg;</span></p>
+  <img class="weather-today__picture" src="http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png">
+  </div>
+  <ul class="weather-today__description">
+    <li>${weatherInfo.description}</li>
+    <li>${language[0]}: ${Math.round(weatherInfo.feels)}&deg;</li>
+    <li>${language[1]}: ${Math.round(weatherInfo.speed)} m/s</li>
+    <li>${language[2]}: ${weatherInfo.humidity}%</li>
+  </ul>
+  </div>
+  <div class="weather-future__wrapper">
+        <ul class="weather-future__list">
+          <li>
+            <p class="weather-future__day">${data.tom[0]}</p>
+            <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[0])}<span>&deg;</span></p><img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[0]}@2x.png"></li>
+          <li>
+            <p class="weather-future__day">${data.tom[1]}</p>
+            <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[1])}<span>&deg;</span></p>
+            <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[1]}@2x.png">
+          </li>
+          <li>
+            <p class="weather-future__day">${data.tom[2]}</p>
+            <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[2])}<span>&deg;</span></p>
+            <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[2]}@2x.png">
+          </li>
+        </ul>
+      </div>
     </div>`
-    let form = document.querySelector('.search__form');
-    form.insertAdjacentHTML('beforeend', markup);
+    //let form = document.querySelector('.search__form');
+    wrapper.insertAdjacentHTML('afterbegin', markup);
 }
 
 export { renderForecastInfo, renderStatic, renderWeather};
