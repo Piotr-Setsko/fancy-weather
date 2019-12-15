@@ -1,22 +1,30 @@
-function effectTemp(T, P, v) {
-  const result = Math.round(-2.7 + 1.04 * T + (2.0 * P) / 1000 - 0.65 * v);
-  return result;
-}
-
 async function getTime(timeZone, nextDays) {
   const localDate = {};
   const date = new Date();
-  const optionsTime = {
-    hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `Poland/Warsaw`,
+  let optionsTime;
+
+  //console.log(timeZone);
+  if (timeZone === 'Europe/Minsk') {
+    optionsTime = {
+    hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `${timeZone}`,
   };
+  localDate.time = date.toLocaleString('en', optionsTime);
+} else {
+  optionsTime = {
+    hour12: false, hour: 'numeric', minute: 'numeric',
+  };
+  let newTime = new Date(Date.now() - 180 *60 * 1000 + `${timeZone}` * 1000);
+  localDate.time = newTime.toLocaleString('en', optionsTime);
+}
+
   console.log(timeZone);
   localDate.week = date.toLocaleString('en', { weekday: 'short' });
   localDate.day = date.toLocaleString('en', { day: 'numeric' });
   localDate.year = date.toLocaleString('en', { month: 'long' });
-  localDate.time = date.toLocaleString('en', optionsTime);
+  //localDate.time = date.toLocaleString('en', optionsTime);
 
   localDate.tom = new Date(`${nextDays[1]}`).toLocaleString('en', { weekday: 'long' });
-
+  console.log(localDate);
   return localDate;
 }
 

@@ -5,8 +5,8 @@ function renderStatic() {
   const markup =
   `<div class="page__wrapper">
     <button class="page__refresh">&#8635;</button>
-    <select class="page__language">
-      <option>en</option>
+    <select class="page__select-lang">
+      <option class="page__option-lang page__option-lang--en">en</option>
       <option>ru</option>
       <option>by</option>
     </select>
@@ -28,11 +28,11 @@ function renderForecastInfo(city, countryName, data, temp, icon, description, fe
   const markup =
     `<div class="weather__wrapper">
       <p class="weather-today__city">${city}, ${countryName}</p>
-      <p class="weather-today__city">${data.week} ${data.day} ${data.year} ${data.time}</p>
+      <p class="weather-today__city"><span class="weather-today___date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today___time">${data.time}</p>
       <p class="weather-today__city">${Math.round(temp)}&#8451;<img src="http://openweathermap.org/img/wn/${icon}@2x.png"></p>
       <ul class="weather-today__city">
         <li>${description}</li>
-        <li>feels like: ${feels}&#8451;</li>
+        <li>feels like: ${Math.round(feels)}&#8451;</li>
         <li>wind: ${Math.round(speed)} m/s</li>
         <li>humidity: ${humidity}%</li>
       </ul>
@@ -59,7 +59,7 @@ function renderWeather(weatherInfo, data, symbol, language) {
       <p class="weather-today__city">${Math.round(weatherInfo.temp)}${symbol}<img src="http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png"></p>
       <ul class="weather-today__city">
         <li>${weatherInfo.description}</li>
-        <li>${language[0]}: ${weatherInfo.feels}${symbol}</li>
+        <li>${language[0]}: ${Math.round(weatherInfo.feels)}${symbol}</li>
         <li>${language[1]}: ${Math.round(weatherInfo.speed)} m/s</li>
         <li>${language[2]}: ${weatherInfo.humidity}%</li>
       </ul>
