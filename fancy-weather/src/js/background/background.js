@@ -6,4 +6,3 @@ async function getImage(description) {
 }
 
 export default getImage;
-

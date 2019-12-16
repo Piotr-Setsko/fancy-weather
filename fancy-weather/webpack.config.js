@@ -29,9 +29,11 @@ module.exports = {
         ),
       },
       {
-        //include: SRC,
         test: /\.(eot|gif|otf|png|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: [ 'file-loader' ],
+        loader: 'file-loader',
+        options: {
+          outputPath: 'assets/images',
+        },
       },
     ],
   },
@@ -45,7 +47,7 @@ module.exports = {
       filename: 'index.html',
     }),
     new CopyWebpackPlugin([
-      {from:'src/assets/images',to:'assets/images'}
+      { from: 'src/assets/images', to: 'assets/images' },
     ]),
   ],
 };

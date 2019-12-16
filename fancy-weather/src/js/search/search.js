@@ -1,7 +1,6 @@
-import getWeatherForecast from '.././weather/weather';
 import create from '../../index';
 
-function someFunc() {
+function searchCity() {
   let search;
 
   if (document.location.search === '') {
@@ -12,16 +11,11 @@ function someFunc() {
   return search;
 }
 
+const btn = document.getElementById('btn');
 
-let btn = document.getElementById("btn");
-
-window.addEventListener("unload", function() {
+window.addEventListener('unload', () => {
   btn.addEventListener('click', () => {
-    let search = someFunc();
+    const search = searchCity();
     create(search);
   });
 });
-
-
-export default someFunc;
-

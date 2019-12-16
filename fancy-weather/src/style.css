@@ -17,7 +17,7 @@ body {
   margin: 0 auto;
   padding: 30px 0;
   background-image: var(--link);
-  max-width: 1024px;
+  max-width: 1200px;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -148,7 +148,7 @@ body {
 }
 
 .weather__wrapper {
-  width: 60%;
+  width: 65%;
 }
 
 .weather-today__location {
@@ -165,28 +165,28 @@ body {
 
 .weather-today__main-block {
   position: relative;
+  width: 100%;
 }
 
 .weather-today__temperature {
+  width: 50%;
   position: relative;
   margin: 0;
   text-align: center;
-  width: 270px;
-  font-size: 80vh;
-
+  font-size: 320px;
 }
 
 .weather-today__temperature > span {
-  font-size: 30vh;
+  font-size: 130px;
   vertical-align: top;
 }
 
 .weather-today__picture {
   position: absolute;
-  width: 50vh;
-  height: 50vh;
-  top: -5vh;
-  left: 60%;
+  width: 250px;
+  height: 250px;
+  top: -25%;
+  left: 45%;
 }
 
 .weather-today__main-block {
@@ -196,6 +196,7 @@ body {
 
 .weather-today__description {
   margin-top: 10vw;
+  margin-left: -15px;
   font-size: 22px;
   list-style: none;
   text-transform: uppercase;
@@ -214,7 +215,9 @@ body {
 }
 
 .weather-future__list > li {
+  position: relative;
   margin: 0 auto;
+  width: 33%;
 }
 
 .weather-future__day {
@@ -228,9 +231,8 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 600;
-  top: -30px;
   right: -15px;
-  font-size: 19vh;
+  font-size: 100px;
 }
 
 .weather-future__deg > span {
@@ -239,23 +241,21 @@ body {
 }
 
 .weather-future__picture {
-  position: relative;
-  width: 32vh;
-  top: -20px;
-  left: 0;
+  position: absolute;
+  width: 130px;
+  top: -10px;
 }
 
 .location__map {
+  width: 35%;
+  margin: auto 0;
   margin-left: -2%;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
 }
 
 #map {
   margin-bottom: 50px;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 350px;
 }
 
 .location__coord {

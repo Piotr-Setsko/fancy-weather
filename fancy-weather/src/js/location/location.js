@@ -11,4 +11,4 @@ async function getCountryName(country) {
     .then((data) => data[`${country}`]);
 }
 
-export {getUserLocation, getCountryName};
+export { getUserLocation, getCountryName };

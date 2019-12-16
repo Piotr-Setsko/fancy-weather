@@ -5,26 +5,25 @@ async function getTime(timeZone, nextDays) {
 
   if (timeZone === 'Europe/Minsk') {
     optionsTime = {
-    hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `${timeZone}`,
-  };
-  localDate.time = date.toLocaleString('en', optionsTime);
-} else {
-  optionsTime = {
-    hour12: false, hour: 'numeric', minute: 'numeric',
-  };
-  let newTime = new Date(Date.now() - 180 *60 * 1000 + `${timeZone}` * 1000);
-  localDate.time = newTime.toLocaleString('en', optionsTime);
-}
+      hour12: false, hour: 'numeric', minute: 'numeric', timeZone: `${timeZone}`,
+    };
+    localDate.time = date.toLocaleString('en', optionsTime);
+  } else {
+    optionsTime = {
+      hour12: false, hour: 'numeric', minute: 'numeric',
+    };
+    const newTime = new Date(Date.now() - 180 * 60 * 1000 + `${timeZone}` * 1000);
+    localDate.time = newTime.toLocaleString('en', optionsTime);
+  }
 
-  console.log(timeZone);
   localDate.week = date.toLocaleString('en', { weekday: 'short' });
   localDate.day = date.toLocaleString('en', { day: 'numeric' });
   localDate.year = date.toLocaleString('en', { month: 'long' });
 
-  let tom = [];
-  tom[0]  = new Date(`${nextDays[0]}`).toLocaleString('en', { weekday: 'long' });
-  tom[1]  = new Date(`${nextDays[1]}`).toLocaleString('en', { weekday: 'long' });
-  tom[2]  = new Date(`${nextDays[2]}`).toLocaleString('en', { weekday: 'long' });
+  const tom = [];
+  tom[0] = new Date(`${nextDays[0]}`).toLocaleString('en', { weekday: 'long' });
+  tom[1] = new Date(`${nextDays[1]}`).toLocaleString('en', { weekday: 'long' });
+  tom[2] = new Date(`${nextDays[2]}`).toLocaleString('en', { weekday: 'long' });
 
   localDate.tom = tom;
   return localDate;
@@ -35,10 +34,7 @@ function translate(text, lang) {
 
   // https://cors-anywhere.herokuapp.com/
   return fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_API_TOKEN}&text=${text}&lang=${lang}`)
-    .then((response) => response.json())
-    //.then((data) => console.log(data));
+    .then((response) => response.json());
 }
-
-//translate();
 
 export { getTime, translate };
