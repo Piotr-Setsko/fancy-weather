@@ -40,31 +40,22 @@ async function create() {
 
     const { timezone } = weatherInfo;
 
+
     const wrapper = document.querySelector('.page__wrapper');
-    //console.log(getImage(weatherInfo.description));
 
-    getImage(weatherInfo.description).then(
-      result => {
-        const { urls } = getImage(weatherInfo.description);
-        const link = urls.regular;
-        console.log(link);
+    getImage(weatherInfo.description)
+    .then( data => {
+        if (data !== undefined) {
+        const link = data.urls.regular;
         wrapper.style.setProperty('--link', `url(${link})`);
-        console.log('hello');
-      },
-      error => {
-        console.log('no image');
-      }
-    );
-    /*
-    const { urls } = await getImage(weatherInfo.description);
+        }
+      })
+      .catch(
+        wrapper.style.setProperty('--link', 'url("https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")')
+      );
 
-    const link = urls.regular;
-    if (link !== 'undefined') {
-      wrapper.style.setProperty('--link', `url(${link})`);
-    }
-    */
+
     const data = await getTime(timezone, weatherInfo.nextDays);
-
 
     renderForecastInfo(data, weatherInfo, lang);
 

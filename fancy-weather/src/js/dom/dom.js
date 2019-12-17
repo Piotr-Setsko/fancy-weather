@@ -51,15 +51,18 @@ function renderWeather(data, weatherInfo, language) {
       <ul class="weather-future__list">
         <li>
           <p class="weather-future__day">${data.tom[0]}</p>
-          <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[0])}<span>&deg;</span></p><img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[0]}@2x.png"></li>
+          <div class="weather-future__present">
+          <p class="weather-future__temp">${Math.round(weatherInfo.tempTomorrow[0])}<span>&deg;</span></p><img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[0]}@2x.png">
+          </div>
+        </li>
         <li>
           <p class="weather-future__day">${data.tom[1]}</p>
-          <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[1])}<span>&deg;</span></p>
+          <p class="weather-future__temp">${Math.round(weatherInfo.tempTomorrow[1])}<span>&deg;</span></p>
           <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[1]}@2x.png">
         </li>
         <li>
           <p class="weather-future__day">${data.tom[2]}</p>
-          <p class="weather-future__deg">${Math.round(weatherInfo.tempTomorrow[2])}<span>&deg;</span></p>
+          <p class="weather-future__temp">${Math.round(weatherInfo.tempTomorrow[2])}<span>&deg;</span></p>
           <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[2]}@2x.png">
         </li>
       </ul>

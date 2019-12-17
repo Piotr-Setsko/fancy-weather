@@ -1,7 +1,3 @@
-:root {
-  --link: url('https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80');
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -168,25 +164,33 @@ body {
   width: 100%;
 }
 
+.weather-today__section {
+  display: flex;
+  justify-content: start;
+  margin-right: -130px;
+}
+
 .weather-today__temperature {
-  width: 50%;
-  position: relative;
+  width: auto;
   margin: 0;
   text-align: center;
   font-size: 320px;
 }
 
 .weather-today__temperature > span {
-  font-size: 130px;
+  position: relative;
+  font-size: 90px;
   vertical-align: top;
+  top: 50px;
+  z-index: 1;
 }
 
 .weather-today__picture {
-  position: absolute;
+  display: block;
   width: 250px;
   height: 250px;
-  top: -25%;
-  left: 45%;
+  margin-top: -70px;
+  margin-left: -70px;
 }
 
 .weather-today__main-block {
@@ -196,7 +200,7 @@ body {
 
 .weather-today__description {
   margin-top: 10vw;
-  margin-left: -15px;
+  padding: 0;
   font-size: 22px;
   list-style: none;
   text-transform: uppercase;
@@ -215,9 +219,12 @@ body {
 }
 
 .weather-future__list > li {
-  position: relative;
   margin: 0 auto;
   width: 33%;
+}
+
+.weather-future__present {
+  display: flex;
 }
 
 .weather-future__day {
@@ -225,9 +232,7 @@ body {
   font-size: 22px;
 }
 
-.weather-future__deg {
-  position: relative;
-  display: inline-block;
+.weather-future__temp {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 600;
@@ -235,20 +240,20 @@ body {
   font-size: 100px;
 }
 
-.weather-future__deg > span {
+.weather-future__temp > span {
   font-size: 50px;
   vertical-align: top;
 }
 
 .weather-future__picture {
-  position: absolute;
   width: 130px;
-  top: -10px;
+  margin-top: -50px;
+  margin-left: -20px;
 }
 
 .location__map {
   width: 35%;
-  margin: auto 0;
+  margin: auto auto;
   margin-left: -2%;
 }
 
@@ -261,5 +266,18 @@ body {
 .location__coord {
   text-align: right;
   font-size: 20px;
+}
+
+@media (max-width: 480px) {
+  .weather__wrapper {
+    width: 100%;
+  }
+  .weather-future__list > li {
+    width: 80%;
+  }
+
+  .location__map {
+    width: 100%;
+  }
 }
 
