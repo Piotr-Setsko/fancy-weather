@@ -7,7 +7,7 @@ async function getImage(description) {
       if (response.status === 200) {
        return response.json();
       } else {
-        console.clear();
+        //console.clear();
         return undefined;
       }
     });

@@ -47,6 +47,7 @@ async function create() {
     .then( data => {
         if (data !== undefined) {
         const link = data.urls.regular;
+        //console.log(link);
         wrapper.style.setProperty('--link', `url(${link})`);
         }
       })
@@ -55,7 +56,7 @@ async function create() {
       );
 
 
-    const data = await getTime(timezone, weatherInfo.nextDays);
+    let data = await getTime(timezone, weatherInfo.nextDays);
 
     renderForecastInfo(data, weatherInfo, lang);
 
@@ -66,22 +67,40 @@ async function create() {
       // let weatherInfo;
       if (event.target.value === 'ru') {
         lang = ru;
+        document.children[0].lang = 'ru';
         weatherInfo = await weatherData(search, unit, event.target.value);
-        const transl = await translate(`${weatherInfo.name} ${weatherInfo.countryName}`, 'en-ru');
+        const transl = await translate(`${weatherInfo.name}, ${weatherInfo.countryName}`, 'en-ru');
         let { text } = transl;
         [text] = text;
-        text = text.split(' ');
-        [weatherInfo.name, weatherInfo.countryName] = text;
+        console.log(text);
+        let textStr = text.split(',');
+        [weatherInfo.name, weatherInfo.countryName] = textStr;
+        data = await getTime(timezone, weatherInfo.nextDays);
       } else if (event.target.value === 'by') {
         lang = by;
+        document.children[0].lang = 'be';
         weatherInfo = await weatherData(search, unit, event.target.value);
+        data = await getTime(timezone, weatherInfo.nextDays);
+
+        const transl = await translate(`${weatherInfo.name}, ${weatherInfo.countryName}, ${weatherInfo.description}`, 'en-be');
+        console.log(transl);
+        let { text } = transl;
+        [text] = text;
+        let textStr = text.split(',');
+        [weatherInfo.name, weatherInfo.countryName, weatherInfo.description] = textStr;
       } else {
         lang = en;
+        document.children[0].lang = 'en';
         weatherInfo = await weatherData(search, unit, event.target.value);
-      }
+        data = await getTime(timezone, weatherInfo.nextDays);
 
+      //console.log(lang);
+      console.log(document.children[0].lang);
+      }
       document.querySelector('.weather__wrapper').remove();
-      renderWeather(data, weatherInfo, lang);
+      document.querySelector('.location__map').remove();
+      renderForecastInfo(data, weatherInfo, lang);
+      init(weatherInfo.coord);
     });
 
     metric.addEventListener('click', async () => {

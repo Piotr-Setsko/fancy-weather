@@ -6,6 +6,7 @@ async function weatherData(search, unit, lang) {
   const tempTomorrow = {};
   const weatherInfo = {};
   const weatherDataInfo = await getWeatherForecast(search, unit, lang);
+  
   const {
     city,
   } = weatherDataInfo;
@@ -47,6 +48,7 @@ async function weatherData(search, unit, lang) {
   weatherInfo.countryName = countryName;
   weatherInfo.temp = temp;
   weatherInfo.icon = icon;
+
   weatherInfo.description = description;
   weatherInfo.speed = speed;
   weatherInfo.humidity = humidity;

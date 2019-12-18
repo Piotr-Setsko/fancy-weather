@@ -77,8 +77,8 @@ function renderForecastInfo(data, weatherInfo, language) {
   const markup = `<div class="location__map">
     <div id="map"></div>
     <div class="location__footer">
-      <p class="location__coord">Latitude: ${Math.trunc(weatherInfo.coord.lat)}&#176;${Math.trunc((weatherInfo.coord.lat - Math.trunc(weatherInfo.coord.lat)) * 100)}&#8242;</p>
-      <p class="location__coord">Longitude: ${Math.trunc(weatherInfo.coord.lon)}&#176;${Math.trunc((weatherInfo.coord.lon - Math.trunc(weatherInfo.coord.lon)) * 100)}&#8242;</p>
+      <p class="location__coord">${language[3]}: ${Math.trunc(weatherInfo.coord.lat)}&#176;${Math.trunc((weatherInfo.coord.lat - Math.trunc(weatherInfo.coord.lat)) * 100)}&#8242;</p>
+      <p class="location__coord">${language[4]}: ${Math.trunc(weatherInfo.coord.lon)}&#176;${Math.trunc((weatherInfo.coord.lon - Math.trunc(weatherInfo.coord.lon)) * 100)}&#8242;</p>
     </div>
   </div>`;
 
