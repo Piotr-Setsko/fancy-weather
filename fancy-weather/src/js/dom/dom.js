@@ -9,7 +9,7 @@ function renderStatic() {
         <select class="control__select-lang button">
           <option class="control__option-lang control__option-lang--en">en</option>
           <option class="control__option-lang control__option-lang--ru">ru</option>
-          <option class="control__option-lang control__option-lang--by">by</option>
+          <option class="control__option-lang control__option-lang--by">be</option>
         </select>
       </div>
       <button class="control__unit control__unit--imperial button">&deg;F</button>
@@ -17,7 +17,7 @@ function renderStatic() {
     </div>
     <div class="page__search">
       <form class="search__form">
-        <input id="search" class="search__input" type="text" name="search" placeholder="Search sity or ZIP" pattern="^[a-zA-Zа-яёА-ЯЁ]+$">
+        <input id="search" class="search__input" type="text" name="search" placeholder="Search city" pattern="^[a-zA-Zа-яёА-ЯЁ]+$">
         <input id="btn" class="search__button button" type="submit" value="search">
       </form>
     </div>

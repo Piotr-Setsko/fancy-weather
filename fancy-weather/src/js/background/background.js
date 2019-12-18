@@ -3,14 +3,11 @@ async function getImage(description) {
 
   return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter+night+${description}+city&client_id=${IMAGE_API_TOKEN}`)
     .then((response) => {
-      console.log(response.status);
       if (response.status === 200) {
-       return response.json();
-      } else {
-        //console.clear();
-        return undefined;
+        return response.json();
       }
+      return undefined;
     });
-  }
+}
 
 export default getImage;

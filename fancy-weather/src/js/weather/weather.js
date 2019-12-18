@@ -1,12 +1,28 @@
-import { getUserLocation, getCountryName } from '../location/location';
+import { getCountryName } from '../location/location';
+
+function getWeatherForecast(search, unit, lang) {
+  const WEATHER_API_TOKEN = '126d13202c34a940babbe01a1df00e7d';
+
+  return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
+    .then((response) => {
+      if (response.status === 404) {
+        return response.status;
+      }
+      return response.json();
+    });
+}
 
 async function weatherData(search, unit, lang) {
   const nextDays = {};
   const iconTomorrow = {};
   const tempTomorrow = {};
   const weatherInfo = {};
-  const weatherDataInfo = await getWeatherForecast(search, unit, lang);
-  
+  let weatherDataInfo = await getWeatherForecast(search, unit, lang);
+
+  if (weatherDataInfo === 404) {
+    weatherDataInfo = await getWeatherForecast('Minsk', unit, lang);
+  }
+
   const {
     city,
   } = weatherDataInfo;
@@ -17,11 +33,8 @@ async function weatherData(search, unit, lang) {
     list,
   } = weatherDataInfo;
   const {
-    main, weather, wind, sys,
+    main, weather, wind,
   } = list[0];
-  const {
-    pad,
-  } = sys;
   tempTomorrow[0] = list[8].main.temp;
   tempTomorrow[1] = list[16].main.temp;
   tempTomorrow[2] = list[24].main.temp;
@@ -32,7 +45,7 @@ async function weatherData(search, unit, lang) {
   iconTomorrow[1] = list[16].weather[0].icon;
   iconTomorrow[2] = list[24].weather[0].icon;
   const {
-    temp, humidity, pressure,
+    temp, humidity,
   } = main;
   weatherInfo.feels = main.feels_like;
   const {
@@ -59,13 +72,6 @@ async function weatherData(search, unit, lang) {
   weatherInfo.timezone = timezone;
 
   return weatherInfo;
-}
-
-function getWeatherForecast(search, unit, lang) {
-  const WEATHER_API_TOKEN = '126d13202c34a940babbe01a1df00e7d';
-
-  return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
-    .then((response) => response.json());
 }
 
 export { getWeatherForecast, weatherData };
