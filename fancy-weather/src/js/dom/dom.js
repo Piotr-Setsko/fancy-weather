@@ -57,13 +57,17 @@ function renderWeather(data, weatherInfo, language) {
         </li>
         <li>
           <p class="weather-future__day">${data.tom[1]}</p>
+          <div class="weather-future__present">
           <p class="weather-future__temp">${Math.round(weatherInfo.tempTomorrow[1])}<span>&deg;</span></p>
           <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[1]}@2x.png">
+          </div>
         </li>
         <li>
           <p class="weather-future__day">${data.tom[2]}</p>
+          <div class="weather-future__present">
           <p class="weather-future__temp">${Math.round(weatherInfo.tempTomorrow[2])}<span>&deg;</span></p>
           <img class="weather-future__picture" src="http://openweathermap.org/img/wn/${weatherInfo.iconTomorrow[2]}@2x.png">
+          </div>
         </li>
       </ul>
     </div>
