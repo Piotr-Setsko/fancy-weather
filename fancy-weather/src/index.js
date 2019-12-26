@@ -21,13 +21,14 @@ async function create() {
     let unit;
     let lang;
     let langLetter;
+
     const { ru, en, be } = await language;
-    if (localStorage.lang === undefined || localStorage.lang === 'en') {
+    if (sessionStorage.lang === undefined || sessionStorage.lang === 'en') {
       lang = en;
       langLetter = 'en';
     } else {
-      document.children[0].lang = localStorage.lang;
-      if (localStorage.lang === 'ru') {
+      document.children[0].lang = sessionStorage.lang;
+      if (sessionStorage.lang === 'ru') {
         lang = ru;
         langLetter = 'ru';
       } else {
@@ -36,7 +37,10 @@ async function create() {
       }
     }
 
-    document.querySelector('.control__select-lang').value = localStorage.lang;
+    if (sessionStorage.lang === '' || sessionStorage.lang === undefined) {
+      sessionStorage.lang = 'en';
+    }
+    document.querySelector('.control__select-lang').value = sessionStorage.lang;
 
     const { city } = await getUserLocation();
 
@@ -46,10 +50,14 @@ async function create() {
       search = document.location.search.slice(8);
     }
 
-    if (metric.classList.contains('active')) {
-      unit = 'metric';
-    } else {
+    if (sessionStorage.temp === 'imper') {
       unit = 'imperial';
+      imperial.classList.add('active');
+      metric.classList.remove('active');
+    } else {
+      unit = 'metric';
+      metric.classList.add('active');
+      imperial.classList.remove('active');
     }
 
     weatherInfo = await weatherData(search, unit, langLetter);
@@ -66,18 +74,18 @@ async function create() {
         }
       })
       .catch(
-        wrapper.style.setProperty('--link', 'url("https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")'),
+        wrapper.style.setProperty('--link', 'url("https://images.unsplash.com/photo-1554417063-60e738613596?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")'),
       );
 
     let data = await getTime(timezone, weatherInfo.nextDays);
 
-    if (localStorage.lang === 'ru') {
+    if (sessionStorage.lang === 'ru') {
       const transl = await translate(`${weatherInfo.name}, ${weatherInfo.countryName}`, 'en-ru');
       let { text } = transl;
       [text] = text;
       const textStr = text.split(',');
       [weatherInfo.name, weatherInfo.countryName] = textStr;
-    } else if (localStorage.lang === 'be') {
+    } else if (sessionStorage.lang === 'be') {
       const transl = await translate(`${weatherInfo.name}, ${weatherInfo.countryName}, ${weatherInfo.description}`, 'en-be');
       let { text } = transl;
       [text] = text;
@@ -89,10 +97,9 @@ async function create() {
 
     init(weatherInfo.coord);
 
-
     selectLang.addEventListener('change', async (event) => {
       if (event.target.value === 'ru') {
-        localStorage.setItem('lang', 'ru');
+        sessionStorage.setItem('lang', 'ru');
         lang = ru;
         document.children[0].lang = 'ru';
 
@@ -106,7 +113,7 @@ async function create() {
 
         data = await getTime(timezone, weatherInfo.nextDays);
       } else if (event.target.value === 'be') {
-        localStorage.setItem('lang', 'be');
+        sessionStorage.setItem('lang', 'be');
         lang = be;
         document.children[0].lang = 'be';
 
@@ -119,7 +126,7 @@ async function create() {
         const textStr = text.split(',');
         [weatherInfo.name, weatherInfo.countryName, weatherInfo.description] = textStr;
       } else {
-        localStorage.setItem('lang', 'en');
+        sessionStorage.setItem('lang', 'en');
         lang = en;
         document.children[0].lang = 'en';
 
@@ -139,6 +146,7 @@ async function create() {
         imperial.classList.toggle('active');
       }
       unit = 'metric';
+      sessionStorage.setItem('temp', 'metric');
       weatherInfo = await weatherData(search, unit);
       document.querySelector('.weather__wrapper').remove();
       renderWeather(data, weatherInfo, lang);
@@ -149,10 +157,13 @@ async function create() {
         metric.classList.toggle('active');
         imperial.classList.toggle('active');
       }
+      sessionStorage.setItem('temp', 'imper');
       unit = 'imperial';
       weatherInfo = await weatherData(search, unit);
-      document.querySelector('.weather__wrapper').remove();
-      renderWeather(data, weatherInfo, lang);
+      document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
+      for (let i = 0; i < 3; i += 1) {
+        document.querySelectorAll('.weather-future__temp')[i].innerHTML = `${Math.round(weatherInfo.tempTomorrow[i])}<span>&deg;</span>`;
+      }
     });
   } catch (e) {
     // console.log(e);

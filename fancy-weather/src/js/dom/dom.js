@@ -17,8 +17,8 @@ function renderStatic() {
     </div>
     <div class="page__search">
       <form class="search__form">
-        <input id="search" class="search__input" type="text" name="search" placeholder="Search city" pattern="^[a-zA-Zа-яёА-ЯЁ]+$">
-        <input id="btn" class="search__button button" type="submit" value="search">
+        <input id="search" class="search__input" type="text" name="search" placeholder="Search city or ZIP" pattern="^[a-zA-Zа-яёА-ЯЁ]+$|^[0-9]+$|^\S+$">
+        <input id="btn" class="search__button button" type="submit" value="Search">
       </form>
     </div>
   </div>

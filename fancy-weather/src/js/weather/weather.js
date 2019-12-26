@@ -2,10 +2,18 @@ import { getCountryName } from '../location/location';
 
 function getWeatherForecast(search, unit, lang) {
   const WEATHER_API_TOKEN = '126d13202c34a940babbe01a1df00e7d';
-
+  if (parseInt(search, 10)) {
+    return fetch(`https://api.openweathermap.org/data/2.5/forecast/?id=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
+      .then((response) => {
+        if (response.status === 404 || response.status === 400) {
+          return response.status;
+        }
+        return response.json();
+      });
+  }
   return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
     .then((response) => {
-      if (response.status === 404) {
+      if (response.status === 404 || response.status === 400) {
         return response.status;
       }
       return response.json();
@@ -17,10 +25,9 @@ async function weatherData(search, unit, lang) {
   const iconTomorrow = {};
   const tempTomorrow = {};
   const weatherInfo = {};
-  let weatherDataInfo = await getWeatherForecast(search, unit, lang);
-
-  if (weatherDataInfo === 404) {
-    weatherDataInfo = await getWeatherForecast('Minsk', unit, lang);
+  const weatherDataInfo = await getWeatherForecast(search, unit, lang);
+  if (weatherDataInfo === 404 || weatherDataInfo === 400) {
+    document.location.search = '';
   }
 
   const {
@@ -48,7 +55,7 @@ async function weatherData(search, unit, lang) {
     temp, humidity,
   } = main;
   weatherInfo.feels = main.feels_like;
-  const {
+  let {
     speed,
   } = wind;
   const {
@@ -63,6 +70,10 @@ async function weatherData(search, unit, lang) {
   weatherInfo.icon = icon;
 
   weatherInfo.description = description;
+
+  if (unit === 'imperial') {
+    speed = Math.round(speed / 2.237);
+  }
   weatherInfo.speed = speed;
   weatherInfo.humidity = humidity;
   weatherInfo.coord = coord;
