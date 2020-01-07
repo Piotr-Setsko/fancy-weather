@@ -1,6 +1,6 @@
 import './style.css';
 import '@babel/polyfill';
-import { renderForecastInfo, renderWeather } from './js/dom/dom';
+import { renderForecastInfo } from './js/dom/dom';
 import init from './js/map/map';
 import { getTime, translate } from './js/utilities/utilities';
 import { getUserLocation } from './js/location/location';
