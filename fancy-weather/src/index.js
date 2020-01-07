@@ -148,8 +148,10 @@ async function create() {
       unit = 'metric';
       sessionStorage.setItem('temp', 'metric');
       weatherInfo = await weatherData(search, unit);
-      document.querySelector('.weather__wrapper').remove();
-      renderWeather(data, weatherInfo, lang);
+      document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
+      for (let i = 0; i < 3; i += 1) {
+        document.querySelectorAll('.weather-future__temp')[i].innerHTML = `${Math.round(weatherInfo.tempTomorrow[i])}<span>&deg;</span>`;
+      }
     });
 
     imperial.addEventListener('click', async () => {
@@ -178,5 +180,4 @@ const refresh = document.querySelector('.control__refresh');
 
 refresh.addEventListener('click', () => {
   window.location.reload();
-  document.location.search = '';
 });
