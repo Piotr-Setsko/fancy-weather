@@ -1,6 +1,4 @@
-import create from '../../index';
-
-function searchCity() {
+export const searchCity = () => {
   let search;
 
   if (document.location.search === '') {
@@ -10,12 +8,3 @@ function searchCity() {
   }
   return search;
 }
-
-const btn = document.getElementById('btn');
-
-window.addEventListener('unload', () => {
-  btn.addEventListener('click', () => {
-    const search = searchCity();
-    create(search);
-  });
-});

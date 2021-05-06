@@ -1,14 +1,13 @@
+import {TRANSLATE_API_TOKEN} from '../../assets/constants.json';
 let newZone;
 
-function translate(text, lang) {
-  const TRANSLATE_API_TOKEN = 'trnsl.1.1.20191202T204207Z.43defb5ae2430586.cfd2735072ce15cbc9b5bda9b5848526bcbb95be';
-
+const translate = (text, lang) => {
   // https://cors-anywhere.herokuapp.com/
   return fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_API_TOKEN}&text=${text}&lang=${lang}`)
     .then((response) => response.json());
 }
 
-async function getTime(timeZone, nextDays) {
+const getTime = async (timeZone, nextDays) => {
   newZone = timeZone;
   const localDate = {};
   const date = new Date();

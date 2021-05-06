@@ -1,6 +1,6 @@
 let wrapper;
 
-function renderStatic() {
+const renderStatic = () => {
   const markup = `<div class="page__wrapper">
     <div class="page__control">
       <div class="page__buttons">
@@ -31,7 +31,7 @@ function renderStatic() {
 
 renderStatic();
 
-function renderWeather(data, weatherInfo, language) {
+const renderWeather = (data, weatherInfo, language) => {
   const markup = `<div class="weather__wrapper">
     <p class="weather-today__location">${weatherInfo.name}, ${weatherInfo.countryName}</p>
     <p class="weather-today__fulltime"><span class="weather-today__date">${data.week} ${data.day} ${data.year}</span> <span class="weather-today__time">${data.time}</span></p>
@@ -76,7 +76,7 @@ function renderWeather(data, weatherInfo, language) {
   wrapper.insertAdjacentHTML('afterbegin', markup);
 }
 
-function renderForecastInfo(data, weatherInfo, language) {
+const renderForecastInfo = (data, weatherInfo, language) => {
   renderWeather(data, weatherInfo, language);
   const markup = `<div class="location__map">
     <div id="map"></div>

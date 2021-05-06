@@ -5,7 +5,8 @@ import init from './js/map/map';
 import { getTime, translate } from './js/utilities/utilities';
 import { getUserLocation } from './js/location/location';
 import { weatherData } from './js/weather/weather';
-import getImage from './js/background/background';
+import {getImage} from './js/background/background';
+import './js/eventListeners/eventListeners';
 
 const language = import('./assets/language.json').then(({ default: lang }) => lang);
 
@@ -16,7 +17,7 @@ const selectLang = document.querySelector('.control__select-lang');
 let weatherInfo;
 let search;
 
-async function create() {
+const create = async () => {
   try {
     let unit;
     let lang;
@@ -175,9 +176,3 @@ async function create() {
 create();
 
 export default create;
-
-const refresh = document.querySelector('.control__refresh');
-
-refresh.addEventListener('click', () => {
-  window.location.reload();
-});

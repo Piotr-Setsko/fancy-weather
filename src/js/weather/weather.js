@@ -1,7 +1,7 @@
+import {WEATHER_API_TOKEN} from '../../assets/constants.json';
 import { getCountryName } from '../location/location';
 
-function getWeatherForecast(search, unit, lang) {
-  const WEATHER_API_TOKEN = '126d13202c34a940babbe01a1df00e7d';
+const getWeatherForecast = (search, unit, lang) => {  
   if (parseInt(search, 10)) {
     return fetch(`https://api.openweathermap.org/data/2.5/forecast/?id=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
       .then((response) => {
@@ -20,7 +20,7 @@ function getWeatherForecast(search, unit, lang) {
     });
 }
 
-async function weatherData(search, unit, lang) {
+const weatherData = async (search, unit, lang) => {
   const nextDays = {};
   const iconTomorrow = {};
   const tempTomorrow = {};
