@@ -32,7 +32,7 @@ module.exports = {
         test: /\.(eot|gif|otf|png|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader',
         options: {
-          outputPath: 'assets/images',
+          outputPath: './images',
         },
       },
     ],
@@ -43,11 +43,11 @@ module.exports = {
     }),
     new ExtractTextPlugin({ filename: 'style.css' }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './public/index.html',
       filename: 'index.html',
     }),
     new CopyWebpackPlugin([
-      { from: 'src/assets/images', to: 'assets/images' },
+      { from: 'src/images', to: 'assets/images' },
     ]),
   ],
 };

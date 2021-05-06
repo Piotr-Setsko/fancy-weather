@@ -1,4 +1,4 @@
-import './style.css';
+import './css/style.css';
 import '@babel/polyfill';
 import { renderForecastInfo } from './js/dom/dom';
 import init from './js/map/map';

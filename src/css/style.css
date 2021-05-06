@@ -94,7 +94,7 @@ body {
 
 .control__refresh {
   padding: 6px 12px 7px;
-  background-image: url('assets/images/30.png');
+  background-image: url('../images/30.png');
 }
 
 .control__refresh--img {
