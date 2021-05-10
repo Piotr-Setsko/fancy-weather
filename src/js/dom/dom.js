@@ -6,23 +6,25 @@ const renderStatic = () => {
       <div class="page__buttons">
         <button class="control__refresh button"><img class="control__refresh--img" src='assets/images/Vector.svg'></button>
         <div class="control__select-wrapper">
-        <select class="control__select-lang button">
-          <option class="control__option-lang control__option-lang--en">en</option>
-          <option class="control__option-lang control__option-lang--ru">ru</option>
-          <option class="control__option-lang control__option-lang--by">be</option>
-        </select>
+          <select class="control__select-lang button">
+            <option class="control__option-lang control__option-lang--en">en</option>
+            <option class="control__option-lang control__option-lang--ru">ru</option>
+            <option class="control__option-lang control__option-lang--by">be</option>
+          </select>
+        </div>
+        <div class="control__select-unit">
+          <button class="control__unit control__unit--imperial button">&deg;F</button>
+          <button class="control__unit control__unit--metric button active">&deg;C</button>
+        </div>
       </div>
-      <button class="control__unit control__unit--imperial button">&deg;F</button>
-      <button class="control__unit control__unit--metric button active">&deg;C</button>
+      <div class="page__search">
+        <form class="search__form">
+          <input id="search" class="search__input" type="text" name="search" placeholder="Search city or ZIP" pattern="^[a-zA-Zа-яёА-ЯЁ]+$|^[0-9]+$|^S+$">
+          <input id="btn" class="search__button button" type="submit" value="Search">
+        </form>
+      </div>
     </div>
-    <div class="page__search">
-      <form class="search__form">
-        <input id="search" class="search__input" type="text" name="search" placeholder="Search city or ZIP" pattern="^[a-zA-Zа-яёА-ЯЁ]+$|^[0-9]+$|^S+$">
-        <input id="btn" class="search__button button" type="submit" value="Search">
-      </form>
-    </div>
-  </div>
-  <div class="page__weather">
+    <div class="page__weather"></div>
   </div>`;
 
   document.body.innerHTML = markup;

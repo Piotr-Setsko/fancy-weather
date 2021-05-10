@@ -30,6 +30,11 @@ body {
   margin-bottom: 20px;
 }
 
+.control__select-unit {
+  display: inline;
+  font-size: 13px;
+}
+
 .control__select-wrapper {
   display: inline;
   background-color: transparent;
@@ -79,6 +84,7 @@ body {
 
 .control__unit {
   background-color: rgba(76, 82, 85, 0.4);
+  font-size: 14px;
 }
 
 .control__unit--imperial {
