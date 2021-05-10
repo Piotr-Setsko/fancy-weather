@@ -4,24 +4,29 @@ import { renderForecastInfo } from './js/dom/dom';
 import init from './js/map/map';
 import { getTime, translate } from './js/utilities/utilities';
 import { getUserLocation } from './js/location/location';
-import { weatherData } from './js/weather/weather';
-import {getImage} from './js/background/background';
+import { weatherData, unitCheck } from './js/weather/weather';
+import { getImage } from './js/background/background';
+import { searchCity } from './js/search/search';
 import './js/eventListeners/eventListeners';
 
 const language = import('./assets/language.json').then(({ default: lang }) => lang);
 
-const metric = document.querySelector('.control__unit--metric');
-const imperial = document.querySelector('.control__unit--imperial');
+//const metric = document.querySelector('.control__unit--metric');
+//const imperial = document.querySelector('.control__unit--imperial');
+
 const selectLang = document.querySelector('.control__select-lang');
 
 let weatherInfo;
-let search;
 
 const create = async () => {
   try {
-    let unit;
     let lang;
     let langLetter;
+
+    let unit = unitCheck();
+    const search = await searchCity();
+    console.log(unit);
+    console.log(search);
 
     const { ru, en, be } = await language;
     if (sessionStorage.lang === undefined || sessionStorage.lang === 'en') {
@@ -42,24 +47,6 @@ const create = async () => {
       sessionStorage.lang = 'en';
     }
     document.querySelector('.control__select-lang').value = sessionStorage.lang;
-
-    const { city } = await getUserLocation();
-
-    if (document.location.search === '') {
-      search = city;
-    } else {
-      search = document.location.search.slice(8);
-    }
-
-    if (sessionStorage.temp === 'imper') {
-      unit = 'imperial';
-      imperial.classList.add('active');
-      metric.classList.remove('active');
-    } else {
-      unit = 'metric';
-      metric.classList.add('active');
-      imperial.classList.remove('active');
-    }
 
     weatherInfo = await weatherData(search, unit, langLetter);
 
@@ -139,34 +126,6 @@ const create = async () => {
       document.querySelector('.location__map').remove();
       renderForecastInfo(data, weatherInfo, lang);
       init(weatherInfo.coord);
-    });
-
-    metric.addEventListener('click', async () => {
-      if (!metric.classList.contains('active')) {
-        metric.classList.toggle('active');
-        imperial.classList.toggle('active');
-      }
-      unit = 'metric';
-      sessionStorage.setItem('temp', 'metric');
-      weatherInfo = await weatherData(search, unit);
-      document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
-      for (let i = 0; i < 3; i += 1) {
-        document.querySelectorAll('.weather-future__temp')[i].innerHTML = `${Math.round(weatherInfo.tempTomorrow[i])}<span>&deg;</span>`;
-      }
-    });
-
-    imperial.addEventListener('click', async () => {
-      if (!imperial.classList.contains('active')) {
-        metric.classList.toggle('active');
-        imperial.classList.toggle('active');
-      }
-      sessionStorage.setItem('temp', 'imper');
-      unit = 'imperial';
-      weatherInfo = await weatherData(search, unit);
-      document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
-      for (let i = 0; i < 3; i += 1) {
-        document.querySelectorAll('.weather-future__temp')[i].innerHTML = `${Math.round(weatherInfo.tempTomorrow[i])}<span>&deg;</span>`;
-      }
     });
   } catch (e) {
     // console.log(e);

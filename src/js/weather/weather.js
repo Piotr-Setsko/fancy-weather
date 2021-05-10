@@ -1,6 +1,23 @@
 import {WEATHER_API_TOKEN} from '../../assets/constants.json';
 import { getCountryName } from '../location/location';
 
+const unitCheck = () => {
+  const metric = document.querySelector('.control__unit--metric');
+  const imperial = document.querySelector('.control__unit--imperial');
+
+  let unit;
+  if (sessionStorage.temp === 'imper') {
+    unit = 'imperial';
+    imperial.classList.add('active');
+    metric.classList.remove('active');
+  } else {
+    unit = 'metric';
+    metric.classList.add('active');
+    imperial.classList.remove('active');
+  }  
+  return unit;
+}
+
 const getWeatherForecast = (search, unit, lang) => {  
   if (parseInt(search, 10)) {
     return fetch(`https://api.openweathermap.org/data/2.5/forecast/?id=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
@@ -85,4 +102,4 @@ const weatherData = async (search, unit, lang) => {
   return weatherInfo;
 }
 
-export { getWeatherForecast, weatherData };
+export { weatherData, unitCheck };
