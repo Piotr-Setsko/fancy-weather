@@ -18,18 +18,7 @@ const create = async () => {
 
     const { timezone } = weatherInfo;
 
-    const wrapper = document.querySelector('.page__wrapper');
-
-    getImage(weatherInfo.description)
-      .then((data) => {
-        if (data !== undefined) {
-          const link = data.urls.regular;
-          wrapper.style.setProperty('--link', `url(${link})`);
-        }
-      })
-      .catch(
-        wrapper.style.setProperty('--link', 'url("https://images.unsplash.com/photo-1554417063-60e738613596?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")'),
-      );
+    getImage(weatherInfo.description);
 
     let data = await getTime(timezone, weatherInfo.nextDays);
 
