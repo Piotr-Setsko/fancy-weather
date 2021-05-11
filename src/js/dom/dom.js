@@ -9,7 +9,6 @@ const renderStatic = () => {
           <select class="control__select-lang button">
             <option class="control__option-lang control__option-lang--en">en</option>
             <option class="control__option-lang control__option-lang--ru">ru</option>
-            <option class="control__option-lang control__option-lang--by">be</option>
           </select>
         </div>
         <div class="control__select-unit">

@@ -2,15 +2,13 @@ import {searchCity} from '../search/search';
 import create from '../../index';
 import { weatherData, unitCheck } from '../weather/weather';
 
-let unit = unitCheck();
-
-const metric = document.querySelector('.control__unit--metric');
-const imperial = document.querySelector('.control__unit--imperial');
-
-const unitToggle = document.querySelector('.page__buttons');
-
 const refresh = document.querySelector('.control__refresh');
 const btn = document.getElementById('btn');
+const metric = document.querySelector('.control__unit--metric');
+const imperial = document.querySelector('.control__unit--imperial');
+const unitToggle = document.querySelector('.control__select-unit');
+
+
 
 refresh.addEventListener('click', () => {
   window.location.reload();
@@ -23,8 +21,10 @@ window.addEventListener('unload', () => {
   });
 });
 
-unitToggle.addEventListener('click', async (e) => {
+unitToggle.addEventListener('click', async () => {
+  let unit = unitCheck();
   const search = await searchCity();
+
   metric.classList.toggle('active');
   imperial.classList.toggle('active');
 
