@@ -1,7 +1,7 @@
-import { getUserLocation } from '../location/location';
+import { getUserLocation } from '../api/api';
 
 export const searchCity = async () => {
-  const { city } = await getUserLocation();
+  const {city} = await getUserLocation();
   let search;
 
   if (document.location.search === '') {

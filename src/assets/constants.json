@@ -1,6 +1,6 @@
 {
   "IMAGE_API_TOKEN": "b192701d2a4184a7958908b3962286b23edadd136a9165dcb78244425d039231",
   "LOCATION_API_TOKEN": "b319f7092b2b9b",
-  "TRANSLATE_API_TOKEN": "trnsl.1.1.20191202T204207Z.43defb5ae2430586.cfd2735072ce15cbc9b5bda9b5848526bcbb95be",
-  "WEATHER_API_TOKEN" : "126d13202c34a940babbe01a1df00e7d"
+  "WEATHER_API_TOKEN" : "126d13202c34a940babbe01a1df00e7d",
+  "defaultImage": "https://images.unsplash.com/photo-1554417063-60e738613596?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
 }

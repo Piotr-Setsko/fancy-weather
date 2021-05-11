@@ -1,9 +1,7 @@
 import { setCORS } from "google-translate-api-browser";
-const translate = setCORS("http://cors-anywhere.herokuapp.com/")
-;
-const language = import('../../assets/language.json').then(({ default: lang }) => lang);
 
 const checkLang = async () => {
+  const language = import('../../assets/language.json').then(({ default: lang }) => lang);
   const { ru, en } = await language;
   let langData = {};
 
@@ -24,6 +22,8 @@ const checkLang = async () => {
 }
 
 const translateCountryName = async (name) => {
+  const translate = setCORS("http://cors-anywhere.herokuapp.com/");
+
   if (sessionStorage.lang !== 'en') {
     const transl = await translate(`${name}`, {from:'en', to: `${sessionStorage.lang}`});
     let { text } = transl;

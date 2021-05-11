@@ -13,9 +13,6 @@ const imperial = document.querySelector('.control__unit--imperial');
 const unitToggle = document.querySelector('.control__select-unit');
 const selectLang = document.querySelector('.control__select-lang');
 
-const language = import('../../assets/language.json').then(({ default: lang }) => lang);
-
-
 refresh.addEventListener('click', () => {
   window.location.reload();
 });
@@ -43,6 +40,7 @@ unitToggle.addEventListener('click', async () => {
   }
 
   let weatherInfo = await weatherData(search, unit);
+
   document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
   for (let i = 0; i < 3; i += 1) {
     document.querySelectorAll('.weather-future__temp')[i].innerHTML = `${Math.round(weatherInfo.tempTomorrow[i])}<span>&deg;</span>`;
@@ -50,6 +48,7 @@ unitToggle.addEventListener('click', async () => {
 });
 
 selectLang.addEventListener('change', async (event) => {
+  const language = import('../../assets/language.json').then(({ default: lang }) => lang);
   const { ru, en } = await language;
   let lang, data;
   let weatherInfo;

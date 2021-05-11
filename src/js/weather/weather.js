@@ -1,5 +1,5 @@
-import {WEATHER_API_TOKEN} from '../../assets/constants.json';
 import { getCountryName } from '../location/location';
+import { getWeatherById, getWeatherByName } from '../api/api';
 
 const unitCheck = () => {
   const metric = document.querySelector('.control__unit--metric');
@@ -14,27 +14,27 @@ const unitCheck = () => {
     unit = 'metric';
     metric.classList.add('active');
     imperial.classList.remove('active');
-  }  
+  }
   return unit;
 }
 
-const getWeatherForecast = (search, unit, lang) => {  
+const getWeatherForecast = async (search, unit, lang) => {
   if (parseInt(search, 10)) {
-    return fetch(`https://api.openweathermap.org/data/2.5/forecast/?id=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
-      .then((response) => {
+    return getWeatherById(search, unit, lang)
+    .then(response => {
         if (response.status === 404 || response.status === 400) {
-          return response.status;
-        }
-        return response.json();
-      });
-  }
-  return fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${search}&lang=${lang}&units=${unit}&APPID=${WEATHER_API_TOKEN}`)
-    .then((response) => {
-      if (response.status === 404 || response.status === 400) {
         return response.status;
       }
-      return response.json();
-    });
+      return response;
+    })
+  }
+  return getWeatherByName(search, unit, lang)
+    .then(response => {
+        if (response.status === 404 || response.status === 400) {
+        return response.status;
+      }
+      return response
+    })
 }
 
 const weatherData = async (search, unit, lang) => {
@@ -46,7 +46,6 @@ const weatherData = async (search, unit, lang) => {
   if (weatherDataInfo === 404 || weatherDataInfo === 400) {
     document.location.search = '';
   }
-
   const {
     city,
   } = weatherDataInfo;
