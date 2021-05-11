@@ -4,21 +4,21 @@ import { getWeatherById, getWeatherByName } from '../api/api';
 const getWeatherForecast = async (search, unit, lang) => {
   if (parseInt(search, 10)) {
     return getWeatherById(search, unit, lang)
-    .then(response => {
+      .then((response) => {
         if (response.status === 404 || response.status === 400) {
+          return response.status;
+        }
+        return response;
+      });
+  }
+  return getWeatherByName(search, unit, lang)
+    .then((response) => {
+      if (response.status === 404 || response.status === 400) {
         return response.status;
       }
       return response;
-    })
-  }
-  return getWeatherByName(search, unit, lang)
-    .then(response => {
-        if (response.status === 404 || response.status === 400) {
-        return response.status;
-      }
-      return response
-    })
-}
+    });
+};
 
 const weatherData = async (search, unit, lang) => {
   const nextDays = {};
@@ -82,6 +82,6 @@ const weatherData = async (search, unit, lang) => {
   weatherInfo.timezone = timezone;
 
   return weatherInfo;
-}
+};
 
-export { weatherData };
+export default weatherData;

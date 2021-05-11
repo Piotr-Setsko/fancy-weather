@@ -1,9 +1,9 @@
-import {searchCity} from '../search/search';
+import searchCity from '../search/search';
 import create from '../../index';
-import { weatherData } from '../weather/weather';
+import weatherData from '../weather/weather';
 import { unitCheck } from '../utilities/utilities';
 import { translateCountryName } from '../translate/translate';
-import { getTime } from '../date/date';
+import getTime from '../date/date';
 import { renderForecastInfo } from '../dom/dom';
 import init from '../map/map';
 
@@ -40,7 +40,7 @@ unitToggle.addEventListener('click', async () => {
     sessionStorage.setItem('temp', 'metric');
   }
 
-  let weatherInfo = await weatherData(search, unit);
+  const weatherInfo = await weatherData(search, unit);
 
   document.querySelector('.weather-today__temperature').innerHTML = `${Math.round(weatherInfo.temp)}<span>&deg;</span>`;
   for (let i = 0; i < 3; i += 1) {
@@ -51,9 +51,9 @@ unitToggle.addEventListener('click', async () => {
 selectLang.addEventListener('change', async (event) => {
   const language = import('../../assets/language.json').then(({ default: lang }) => lang);
   const { ru, en } = await language;
-  let lang, data;
+  let lang;
   let weatherInfo;
-  let unit = unitCheck();
+  const unit = unitCheck();
   const search = await searchCity();
 
   if (event.target.value === 'ru') {
@@ -63,7 +63,6 @@ selectLang.addEventListener('change', async (event) => {
 
     weatherInfo = await weatherData(search, unit, event.target.value);
     weatherInfo.countryName = await translateCountryName(weatherInfo.countryName);
-
   } else {
     sessionStorage.setItem('lang', 'en');
     lang = en;
@@ -72,12 +71,12 @@ selectLang.addEventListener('change', async (event) => {
     weatherInfo = await weatherData(search, unit, event.target.value);
   }
 
-    const { timezone } = weatherInfo;
-    data = await getTime(timezone, weatherInfo.nextDays);
+  const { timezone } = weatherInfo;
+  const data = await getTime(timezone, weatherInfo.nextDays);
 
-    document.querySelector('.weather__wrapper').remove();
-    document.querySelector('.location__map').remove();
+  document.querySelector('.weather__wrapper').remove();
+  document.querySelector('.location__map').remove();
 
-    renderForecastInfo(data, weatherInfo, lang);
-    init(weatherInfo.coord);
-  });
+  renderForecastInfo(data, weatherInfo, lang);
+  init(weatherInfo.coord);
+});

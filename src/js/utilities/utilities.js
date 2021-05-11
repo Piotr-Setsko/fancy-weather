@@ -14,13 +14,13 @@ const unitCheck = () => {
     imperial.classList.remove('active');
   }
   return unit;
-}
+};
 
 const getCountryName = (country) => {
-  const countryName = import('../../assets/names.json')
+  const countryName = import('../../assets/names.json');
   return countryName
-          .then((data) => data[`${country}`]);
-}
+    .then((data) => data[`${country}`]);
+};
 
 const loadTime = (newZone) => {
   setInterval(() => {
@@ -33,6 +33,6 @@ const loadTime = (newZone) => {
       document.querySelector('.weather-today__time').innerHTML = time;
     }
   }, 10000);
-}
+};
 
 export { unitCheck, getCountryName, loadTime };

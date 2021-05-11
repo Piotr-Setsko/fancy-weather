@@ -1,8 +1,5 @@
 
-let newZone;
-
 const getTime = async (timeZone, nextDays) => {
-  newZone = timeZone;
   const localDate = {};
   const date = new Date();
   const { lang } = document.children[0];
@@ -25,9 +22,6 @@ const getTime = async (timeZone, nextDays) => {
   localDate.tom = tom;
 
   return localDate;
-}
+};
 
-
-
-
-export { getTime };
+export default getTime;

@@ -1,7 +1,7 @@
 import { getUserLocation } from '../api/api';
 
-export const searchCity = async () => {
-  const {city} = await getUserLocation();
+const searchCity = async () => {
+  const { city } = await getUserLocation();
   let search;
 
   if (document.location.search === '') {
@@ -11,4 +11,6 @@ export const searchCity = async () => {
   }
 
   return search;
-}
+};
+
+export default searchCity;

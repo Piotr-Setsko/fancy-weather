@@ -10,6 +10,6 @@ const init = (coord) => {
   });
 
   window.myMap = myMap;
-}
+};
 
 export default init;

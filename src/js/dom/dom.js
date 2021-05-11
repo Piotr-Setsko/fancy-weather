@@ -28,7 +28,7 @@ const renderStatic = () => {
 
   document.body.innerHTML = markup;
   wrapper = document.querySelector('.page__weather');
-}
+};
 
 renderStatic();
 
@@ -75,7 +75,7 @@ const renderWeather = (data, weatherInfo, language) => {
   </div>`;
 
   wrapper.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
 const renderForecastInfo = (data, weatherInfo, language) => {
   renderWeather(data, weatherInfo, language);
@@ -88,6 +88,6 @@ const renderForecastInfo = (data, weatherInfo, language) => {
   </div>`;
 
   wrapper.insertAdjacentHTML('beforeend', markup);
-}
+};
 
 export { renderForecastInfo, renderStatic, renderWeather };
