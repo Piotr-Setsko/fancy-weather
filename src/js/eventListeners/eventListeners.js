@@ -1,6 +1,7 @@
 import {searchCity} from '../search/search';
 import create from '../../index';
-import { weatherData, unitCheck } from '../weather/weather';
+import { weatherData } from '../weather/weather';
+import { unitCheck } from '../utilities/utilities';
 import { translateCountryName } from '../translate/translate';
 import { getTime } from '../date/date';
 import { renderForecastInfo } from '../dom/dom';

@@ -1,22 +1,5 @@
-import { getCountryName } from '../location/location';
+import { getCountryName } from '../utilities/utilities';
 import { getWeatherById, getWeatherByName } from '../api/api';
-
-const unitCheck = () => {
-  const metric = document.querySelector('.control__unit--metric');
-  const imperial = document.querySelector('.control__unit--imperial');
-
-  let unit;
-  if (sessionStorage.temp === 'imper') {
-    unit = 'imperial';
-    imperial.classList.add('active');
-    metric.classList.remove('active');
-  } else {
-    unit = 'metric';
-    metric.classList.add('active');
-    imperial.classList.remove('active');
-  }
-  return unit;
-}
 
 const getWeatherForecast = async (search, unit, lang) => {
   if (parseInt(search, 10)) {
@@ -101,4 +84,4 @@ const weatherData = async (search, unit, lang) => {
   return weatherInfo;
 }
 
-export { weatherData, unitCheck };
+export { weatherData };

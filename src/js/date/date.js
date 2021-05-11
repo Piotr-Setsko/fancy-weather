@@ -28,15 +28,6 @@ const getTime = async (timeZone, nextDays) => {
 }
 
 
-setInterval(() => {
-  const optionsTime = {
-    hour12: false, hour: 'numeric', minute: 'numeric',
-  };
-  const newTime = new Date(Date.now() - 180 * 60 * 1000 + `${newZone}` * 1000);
-  const time = newTime.toLocaleString('en', optionsTime);
-  if (document.querySelector('.weather-today__time') !== null) {
-    document.querySelector('.weather-today__time').innerHTML = time;
-  }
-}, 10000);
+
 
 export { getTime };

@@ -4,7 +4,8 @@ import { renderForecastInfo } from './js/dom/dom';
 import init from './js/map/map';
 import { getTime } from './js/date/date';
 import { checkLang, translateCountryName } from './js/translate/translate';
-import { weatherData, unitCheck } from './js/weather/weather';
+import { weatherData } from './js/weather/weather';
+import { unitCheck, loadTime } from './js/utilities/utilities';
 import { getBackgroundImage } from './js/background/background';
 import { searchCity } from './js/search/search';
 import './js/eventListeners/eventListeners';
@@ -15,7 +16,7 @@ const create = async () => {
     let { lang, langLetter } = await checkLang();
     let weatherInfo = await weatherData(search, unit, langLetter);
     const { timezone } = weatherInfo;
-
+    loadTime(timezone);
     getBackgroundImage(weatherInfo.description);
 
     let data = await getTime(timezone, weatherInfo.nextDays);

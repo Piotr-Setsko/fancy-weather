@@ -27,8 +27,6 @@ const translateCountryName = async (name) => {
   if (sessionStorage.lang !== 'en') {
     const transl = await translate(`${name}`, {from:'en', to: `${sessionStorage.lang}`});
     let { text } = transl;
-    //const textStr = text.split(',');
-    //weatherInfo.countryName = text;
     return text;
   }
   return name;
